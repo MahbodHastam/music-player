@@ -1,8 +1,13 @@
 <template>
-  <div class="content">
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-    <h1 class="song-title">Watermelon sugar hiiiiighhhh</h1>
-    <h3 class="song-author">DibDmini</h3>
+  <span v-if="loading">Loading...</span>
+  <div v-else class="content">
+    <div class="song-cover">
+      <!-- <img class="song-cover" alt="Vue logo" src="../assets/songs/lewis-capaldi-someone-you-loved.jpg"> -->
+      <img class="song-cover" alt="Vue logo" src="http://localhost:9090/public/no-cover.png">
+      <img class="song-cover" alt="Vue logo" src="http://localhost:9090/public/no-cover.png">
+    </div>
+    <h1 class="song-title">{{ this.$store.state.song.details.song ?? this.$store.state.song.details.file_name }}</h1>
+    <h3 class="song-author">{{ this.$store.state.song.details.artist ?? '' }}</h3>
   </div>
 </template>
 
@@ -10,7 +15,17 @@
 
 export default {
   name: 'Home',
-  components: {}
+  components: {},
+  data: function () {
+    return {
+      loading: true
+    }
+  },
+  created () {
+    this.$store.dispatch('getFirstSong').then(() => {
+      this.loading = false
+    })
+  }
 }
 </script>
 
@@ -20,5 +35,24 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.song-cover {
+  display: flex;
+  position: relative;
+  width: 40%;
+
+  img {
+    width: 100%;
+    border-radius: 1.6rem;
+  }
+
+  &:nth-child(2) {
+    position: absolute;
+    opacity: .3;
+    transform: scale(.8);
+    filter: blur(20px);
+    bottom: -35px;
+  }
 }
 </style>

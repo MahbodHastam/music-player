@@ -1,10 +1,23 @@
 html, body {
-  background: linear-gradient(-15deg, #2b294d, #1c132b);
+  background-image: linear-gradient(15deg, #2f385a, #312f5a, #150c24, #080211);
+  background-size: 200%;
   padding: 0;
   margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow-y: hidden;
+  // color: #2f385a;
+  // animation: body_animation 10s ease alternate infinite;
+}
+
+@keyframes body_animation {
+  0% {
+    background-position: left;
+  }
+  100% {
+    background-position: right;
+  }
 }
 
 #app {
@@ -68,6 +81,19 @@ a {
 
     &#pause {
       color: #42b983;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(#42b983, .3);
+        border-radius: 50%;
+        animation: button_pulse_animation 1s infinite ease alternate;
+      }
     }
 
     &#prev, &#next {
@@ -77,5 +103,43 @@ a {
     .bx {
       display: block;
     }
+  }
+}
+
+@keyframes button_pulse_animation {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+.song-item-loading {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background: rgba(#f1f1f1, .7);
+    opacity: .112;
+    animation: song_item_loading 1s ease infinite;
+    border-radius: .6rem;
+  }
+}
+
+@keyframes song_item_loading {
+  0% {
+    opacity: .05;
+    width: 0;
+  }
+  100% {
+    opacity: 0;
+    width: 100%;
   }
 }

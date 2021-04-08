@@ -3,15 +3,17 @@
     <li><router-link to="/">
       <i class="bx bx-home"></i> Home
     </router-link></li>
-    <li><router-link to="/about">
+    <li><router-link to="/songs">
       <i class="bx bxs-playlist"></i> Songs List
     </router-link></li>
   </ul>
-  <router-view/>
+  <transition name="slide-fade">
+    <router-view/>
+  </transition>
   <div class="playbar">
     <button id="prev" class="btn"><i class="bx bx-skip-previous"></i></button>
-    <button id="play" class="btn"><i class="bx bx-play"></i></button>
-    <button id="pause" class="btn"><i class="bx bx-pause"></i></button>
+    <button id="play" v-show="!isPlaying" @click="this.toggleSong()" class="btn"><i class="bx bx-play"></i></button>
+    <button id="pause" v-show="isPlaying" @click="this.toggleSong()" class="btn"><i class="bx bx-pause"></i></button>
     <button id="next" class="btn"><i class="bx bx-skip-next"></i></button>
   </div>
 </template>
@@ -19,7 +21,17 @@
 <script>
 
 export default {
-  name: 'App'
+  name: 'App',
+  data: function () {
+    return {
+      isPlaying: false
+    }
+  },
+  methods: {
+    toggleSong: function () {
+      this.isPlaying = !this.isPlaying
+    }
+  }
 }
 </script>
 
@@ -57,5 +69,22 @@ export default {
       border-bottom: 1px solid #42b983;
     }
   }
+}
+
+.slide-fade-enter-active {
+  transition: all .3s ease-out;
+  transform: scale(1) translateY(0);
+}
+
+.slide-fade-leave-active {
+  // transition: all .8s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: all .8s ease;
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  // transform: translateX(20px);
+  transform: scale(.9) translateY(50px);
+  opacity: 0;
 }
 </style>

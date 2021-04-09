@@ -11,40 +11,50 @@
     <router-view/>
   </transition>
   <div class="playbar">
-    <button id="prev" class="btn"><i class="bx bx-skip-previous"></i></button>
+    <button id="prev" @click="prev" class="btn"><i class="bx bx-skip-previous"></i></button>
     <button id="play" v-show="!isPlaying" @click="play" class="btn"><i class="bx bx-play"></i></button>
     <button id="pause" v-show="isPlaying" @click="pause" class="btn"><i class="bx bx-pause"></i></button>
-    <button id="next" class="btn"><i class="bx bx-skip-next"></i></button>
+    <button id="next" @click="next" class="btn"><i class="bx bx-skip-next"></i></button>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
 
 export default {
   name: 'App',
   data: function () {
-    return {
-      isPlaying: false,
-      player: new Audio()
+    return {}
+  },
+  computed: {
+    isPlaying: function () {
+      return this.$store.state.isPlaying
     }
   },
-  computed: mapState([
-    'isPlaying'
-  ]),
   methods: {
+    toggle: function (status = true) {
+      this.$store.dispatch('setIsPlaying', status)
+      this.$store.dispatch('playerToggle', status)
+    },
     play: function () {
       if (!this.$store.state.player.src) {
         this.$store.dispatch('setPlayerSrc', this.$store.state.song.url)
       }
-      this.$store.dispatch('setIsPlaying', true)
-      this.isPlaying = this.$store.state.isPlaying
-      this.$store.dispatch('playerToggle', true)
+      this.toggle()
     },
     pause: function () {
-      this.$store.dispatch('setIsPlaying', false)
-      this.isPlaying = this.$store.state.isPlaying
-      this.$store.dispatch('playerToggle', false)
+      this.toggle(false)
+    },
+    prev: function () {
+      this.$store.dispatch('setIndex', this.$store.state.index - 1)
+      this.$store.dispatch('setSong', this.$store.state.index)
+      this.$store.dispatch('setPlayerSrc', this.$store.state.songs[this.$store.state.index].url)
+      this.toggle()
+    },
+    next: function () {
+      this.$store.dispatch('setIndex', this.$store.state.index + 1)
+      this.$store.dispatch('setSong', this.$store.state.index)
+      this.$store.dispatch('setPlayerSrc', this.$store.state.songs[this.$store.state.index].url)
+      this.toggle()
     }
   }
 }

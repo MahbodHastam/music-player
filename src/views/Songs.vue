@@ -6,7 +6,7 @@
         v-else
         v-for="song in this.$store.state.songs"
         :key="song.title"
-        v-bind:song="song"
+        :song="song"
       />
     </ul>
   </div>
@@ -50,6 +50,7 @@ export default {
   justify-content: start;
   align-items: center;
   padding: 0 .5em;
+  overflow-y: auto;
 
   ul {
     width: 100%;

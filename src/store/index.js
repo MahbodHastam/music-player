@@ -27,7 +27,7 @@ export default createStore({
       else state.player.pause()
     },
     setIndex (state, newIndex) {
-      if (newIndex > state.songs.length || newIndex < 0) {
+      if (newIndex > (state.songs.length - 1) || newIndex < 0) {
         newIndex = 0
       }
       state.index = newIndex
@@ -64,8 +64,7 @@ export default createStore({
       commit('setIndex', index)
     },
     setSong ({ commit }, index) {
-      const song = this.state.songs[index]
-      commit('setSong', song)
+      commit('setSong', this.state.songs[index])
     }
   },
   modules: {

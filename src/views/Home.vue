@@ -2,9 +2,8 @@
   <span v-if="loading">Loading...</span>
   <div v-else class="content">
     <div class="song-cover">
-      <!-- <img class="song-cover" alt="Vue logo" src="../assets/songs/lewis-capaldi-someone-you-loved.jpg"> -->
-      <img class="song-cover" alt="Vue logo" src="http://localhost:9090/public/no-cover.png">
-      <img class="song-cover" alt="Vue logo" src="http://localhost:9090/public/no-cover.png">
+      <img class="song-cover" :src="this.$store.state.song.details.album_cover ?? 'https://localhost:9090/public/no-cover.png'">
+      <img class="song-cover" :src="this.$store.state.song.details.album_cover ?? 'https://localhost:9090/public/no-cover.png'">
     </div>
     <h1 class="song-title">{{ this.$store.state.song.details.song ?? this.$store.state.song.details.file_name }}</h1>
     <h3 class="song-author">{{ this.$store.state.song.details.artist ?? '' }}</h3>
@@ -19,6 +18,11 @@ export default {
   data: function () {
     return {
       loading: true
+    }
+  },
+  computed: {
+    song: function () {
+      return this.$store.state.song
     }
   },
   created () {

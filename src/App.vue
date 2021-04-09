@@ -12,8 +12,8 @@
   </transition>
   <div class="playbar">
     <button id="prev" class="btn"><i class="bx bx-skip-previous"></i></button>
-    <button id="play" v-show="!isPlaying" @click="this.toggleSong()" class="btn"><i class="bx bx-play"></i></button>
-    <button id="pause" v-show="isPlaying" @click="this.toggleSong()" class="btn"><i class="bx bx-pause"></i></button>
+    <button id="play" v-show="!isPlaying" @click="play" class="btn"><i class="bx bx-play"></i></button>
+    <button id="pause" v-show="isPlaying" @click="pause" class="btn"><i class="bx bx-pause"></i></button>
     <button id="next" class="btn"><i class="bx bx-skip-next"></i></button>
   </div>
 </template>
@@ -24,12 +24,21 @@ export default {
   name: 'App',
   data: function () {
     return {
-      isPlaying: false
+      isPlaying: false,
+      player: new Audio()
     }
   },
   methods: {
-    toggleSong: function () {
-      this.isPlaying = !this.isPlaying
+    play: function () {
+      if (typeof this.$store.state.song !== 'undefined') {
+        this.player.src = this.$store.state.song.url
+        this.player.play()
+        this.isPlaying = true
+      }
+    },
+    pause: function () {
+      this.player.pause()
+      this.isPlaying = false
     }
   }
 }

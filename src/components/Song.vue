@@ -1,8 +1,8 @@
 <template>
   <li class="song-item" :class="{noDetails: !song.details.artist}">
-    <h3 class="song-title">{{ song.details.song ?? 'File Name: `' + (song.details.file_name ?? 'Untitled!!!') + '`' }}</h3>
+    <h3 class="song-title">{{ song.details.song ?? 'File Name: "' + (song.details.file_name ?? 'Untitled!!!') + '"' }}</h3>
     <h5 v-if="song.details.artist" class="song-author">{{ song.details.artist }}</h5>
-    <button class="song-item--play-btn">
+    <button class="song-item--play-btn" @click="play">
       <i class="bx bx-play"></i>
     </button>
   </li>
@@ -13,6 +13,15 @@ export default {
   name: 'Song',
   props: {
     song: Object
+  },
+  methods: {
+    play: function () {
+      this.$store.dispatch('setPlayerSrc', this.song.url)
+      this.$store.dispatch('setIsPlaying', true)
+      this.$store.dispatch('playerToggle', true)
+      this.$store.dispatch('setIndex', this.$store.state.index + 1)
+      this.$store.dispatch('setSong', this.$store.state.index)
+    }
   }
 }
 </script>

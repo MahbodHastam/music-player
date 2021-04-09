@@ -30,15 +30,17 @@ export default {
   },
   methods: {
     play: function () {
-      if (typeof this.$store.state.song !== 'undefined') {
-        this.player.src = this.$store.state.song.url
-        this.player.play()
-        this.isPlaying = true
+      if (!this.$store.state.player.src) {
+        this.$store.dispatch('setPlayerSrc', this.$store.state.song.url)
       }
+      this.$store.dispatch('setIsPlaying', true)
+      this.isPlaying = this.$store.state.isPlaying
+      this.$store.dispatch('playerToggle', true)
     },
     pause: function () {
-      this.player.pause()
-      this.isPlaying = false
+      this.$store.dispatch('setIsPlaying', false)
+      this.isPlaying = this.$store.state.isPlaying
+      this.$store.dispatch('playerToggle', false)
     }
   }
 }

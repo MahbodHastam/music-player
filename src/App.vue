@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 
 export default {
   name: 'App',
@@ -28,6 +29,9 @@ export default {
       player: new Audio()
     }
   },
+  computed: mapState([
+    'isPlaying'
+  ]),
   methods: {
     play: function () {
       if (!this.$store.state.player.src) {

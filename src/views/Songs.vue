@@ -4,9 +4,10 @@
       <loading v-if="loading" />
       <song
         v-else
-        v-for="song in this.$store.state.songs"
-        :key="song.title"
+        v-for="(song, index) in this.$store.state.songs"
+        :key="index"
         :song="song"
+        :song_index="index"
       />
     </ul>
   </div>
@@ -26,13 +27,6 @@ export default {
     return {
       loading: false
     }
-  },
-  computed: {
-    /* songs: function () {
-      const songs = store.dispath('getSongsList')
-      console.log(songs)
-      return songs
-    } */
   },
   created () {
     this.loading = true

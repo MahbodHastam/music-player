@@ -22,9 +22,6 @@
 
 export default {
   name: 'App',
-  data: function () {
-    return {}
-  },
   computed: {
     isPlaying: function () {
       return this.$store.state.isPlaying

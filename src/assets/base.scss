@@ -6,9 +6,9 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-y: hidden;
+  // overflow-y: hidden;
   // color: #2f385a;
-  // animation: body_animation 10s ease alternate infinite;
+  animation: body_animation 10s ease alternate infinite;
 }
 
 @keyframes body_animation {
@@ -83,7 +83,7 @@ a {
     &#pause {
       color: #42b983;
       position: relative;
-      background: rgba(#42b983, .05);
+      // background: rgba(#42b983, .05);
 
       &::after {
         content: '';
@@ -94,7 +94,7 @@ a {
         height: 100%;
         background: rgba(#42b983, .3);
         border-radius: 50%;
-        animation: button_pulse_animation 3s infinite ease;
+        // animation: button_pulse_animation 3s infinite ease;
       }
     }
 

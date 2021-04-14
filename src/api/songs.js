@@ -1,5 +1,5 @@
 // const _songs = []
-const baseUrl = "https://srv2.myren.xyz/"
+const baseUrl = 'https://srv2.myren.xyz/'
 
 export default {
   async getSongs (cb) {

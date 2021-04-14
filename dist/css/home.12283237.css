@@ -1,0 +1,1 @@
+.content{display:flex;flex-direction:column;align-items:center;justify-content:center}.song-cover{display:flex;position:relative;width:40%}.song-cover img{width:100%;border-radius:1.6rem}.song-cover:nth-child(2){position:absolute;opacity:.3;transform:scale(.8);filter:blur(20px);bottom:-35px}
